@@ -69,4 +69,15 @@ router.post('/execute-javascript', async (req, res) => {
   }
 });
 
+router.post('/execute-swift', async (req, res) => {
+  const { code } = req.body;
+  try {
+    const output = await runCodeInDocker('swift', code);
+    res.json(output);
+  } catch (error) {
+    console.error('Error executing Swift:', error);
+    res.status(500).json({ error: error.message || 'Unknown error' });
+  }
+});
+
 export { router as routes };

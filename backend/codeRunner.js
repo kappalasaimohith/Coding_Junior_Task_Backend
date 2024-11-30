@@ -34,6 +34,9 @@ const runCodeInDocker = (language, code) => {
       case 'javascript':
         fileExtension = '.js';
         break;
+      case 'swift':
+        fileExtension = '.swift';
+        break;
       default:
         reject(new Error('Unsupported language'));
         return;
@@ -61,6 +64,9 @@ const runCodeInDocker = (language, code) => {
         break;
       case 'javascript':
         dockerCommand = `docker run --rm -v ${path.dirname(filePath)}:/app node:16 node /app/${path.basename(filePath)}`;
+        break;
+      case 'swift':
+        dockerCommand = `docker run --rm -v ${path.dirname(filePath)}:/app swift:latest swift /app/${path.basename(filePath)}`;
         break;
       default:
         reject(new Error('Unsupported language'));
